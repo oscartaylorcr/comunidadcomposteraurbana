@@ -1,4 +1,7 @@
-.full-width-section p {
+.card .btn {
+    display: inline-block;
+    margin: 0 20px 20px;
+}.full-width-section p {
     text-align: justify;
     margin-bottom: 1rem;
     line-height: 1.7;
@@ -275,12 +278,8 @@ nav ul li a:hover {
 }
 
 .card .btn {
+    display: inline-block;
     margin: 0 20px 20px;
-}
-
-.commercial-project .card {
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 /* Data Section */
