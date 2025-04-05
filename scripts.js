@@ -1,5 +1,89 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Gallery load more functionality
+    const loadMoreButton = document.getElementById('loadMoreGallery');
+    if (loadMoreButton) {
+        // Initial set of additional gallery items (hidden by default)
+        const additionalItems = [
+            {
+                src: 'images/gallery/gallery9.jpg',
+                alt: 'Taller de agricultura regenerativa',
+                caption: 'Taller de agricultura regenerativa'
+            },
+            {
+                src: 'images/gallery/gallery10.jpg',
+                alt: 'Voluntarios trabajando en la finca',
+                caption: 'Voluntarios trabajando en la finca'
+            },
+            {
+                src: 'images/gallery/gallery11.jpg',
+                alt: 'Visita escolar a la compostera',
+                caption: 'Visita escolar a la compostera'
+            },
+            {
+                src: 'images/gallery/gallery12.jpg',
+                alt: 'Producción de semillas criollas',
+                caption: 'Producción de semillas criollas'
+            }
+        ];
+        
+        // Create elements but keep them hidden initially
+        let itemsAdded = false;
+        
+        loadMoreButton.addEventListener('click', function() {
+            if (!itemsAdded) {
+                const galleryGrid = document.querySelector('.gallery-grid');
+                
+                additionalItems.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.style.opacity = '0';
+                    galleryItem.style.transform = 'translateY(20px)';
+                    galleryItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    const img = document.createElement('img');
+                    img.src = item.src;
+                    img.alt = item.alt;
+                    
+                    const caption = document.createElement('div');
+                    caption.className = 'gallery-caption';
+                    caption.textContent = item.caption;
+                    
+                    galleryItem.appendChild(img);
+                    galleryItem.appendChild(caption);
+                    galleryGrid.appendChild(galleryItem);
+                    
+                    // Trigger reflow for animation
+                    setTimeout(() => {
+                        galleryItem.style.opacity = '1';
+                        galleryItem.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+                
+                // Change button text
+                this.textContent = 'Ver menos';
+                itemsAdded = true;
+            } else {
+                // Remove the additional items if shown
+                const galleryItems = document.querySelectorAll('.gallery-grid .gallery-item');
+                const itemsToRemove = Array.from(galleryItems).slice(-additionalItems.length);
+                
+                itemsToRemove.forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        item.remove();
+                    }, 500);
+                });
+                
+                // Change button text back
+                this.textContent = 'Ver más fotos';
+                itemsAdded = false;
+            }
+        });
+    }
     // Add scroll to top functionality when clicking the site name
     const siteName = document.querySelector('header h1');
     if (siteName) {
