@@ -1,23 +1,27 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Set scroll-margin-top based on current device and header height
+    function updateScrollMargins() {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const additionalMargin = window.innerWidth <= 768 ? 40 : 20; // More space on mobile
+        
+        document.querySelectorAll('section').forEach(section => {
+            section.style.scrollMarginTop = (headerHeight + additionalMargin) + 'px';
+        });
+    }
+    
     // Handle window resize for correct header height calculation
     let resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            // Update scroll-margin-top based on current header height
-            const headerHeight = document.querySelector('header').offsetHeight;
-            document.querySelectorAll('section').forEach(section => {
-                section.style.scrollMarginTop = (headerHeight + 20) + 'px';
-            });
-        }, 250);
+        resizeTimer = setTimeout(updateScrollMargins, 250);
     });
     
-    // Set initial scroll-margin-top based on header height
-    const headerHeight = document.querySelector('header').offsetHeight;
-    document.querySelectorAll('section').forEach(section => {
-        section.style.scrollMarginTop = (headerHeight + 20) + 'px';
-    });
+    // Set initial scroll margins
+    updateScrollMargins();
+    
+    // Also update after page load to account for any dynamic content
+    window.addEventListener('load', updateScrollMargins);
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .footer-links a');
     
@@ -35,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const headerHeight = document.querySelector('header').offsetHeight;
                     
                     // Add additional padding to ensure the section title is clearly visible
-                    const additionalOffset = 20; // 20px additional padding
+                    // More padding for mobile devices
+                    const additionalOffset = window.innerWidth <= 768 ? 30 : 20;
                     
                     window.scrollTo({
                         top: targetElement.offsetTop - headerHeight - additionalOffset,
@@ -47,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (window.innerWidth <= 768) {
                     mobileNav.classList.remove('active');
                     menuToggle.classList.remove('active');
+                    
+                    // Force recalculation of scroll position after menu closes
+                    setTimeout(() => {
+                        updateScrollMargins();
+                    }, 150);
                 }
             }
         });

@@ -489,7 +489,7 @@ footer h3, footer h4 {
     
     section {
         padding: 60px 0;
-        scroll-margin-top: 70px; /* Adjusted for smaller header on mobile */
+        scroll-margin-top: 80px; /* Increase for better mobile viewing */
     }
 }
 
