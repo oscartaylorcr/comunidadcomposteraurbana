@@ -1,28 +1,32 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Set scroll-margin-top based on current device and header height
-    function updateScrollMargins() {
-        const headerHeight = document.querySelector('header').offsetHeight;
-        // Significantly more margin for mobile to account for shorter hero space
-        const additionalMargin = window.innerWidth <= 768 ? 80 : 20;
+    // Helper function to force a layout recalculation
+    function forceReflow() {
+        // Force a reflow by accessing offsetHeight
+        document.body.offsetHeight;
         
-        document.querySelectorAll('section').forEach(section => {
-            section.style.scrollMarginTop = (headerHeight + additionalMargin) + 'px';
+        // Update scroll margins with extreme values for mobile
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            if (window.innerWidth <= 768) {
+                section.style.scrollMarginTop = '160px';
+                section.style.paddingTop = '90px';
+            } else {
+                section.style.scrollMarginTop = `${document.querySelector('header').offsetHeight + 20}px`;
+                section.style.paddingTop = '';
+            }
         });
     }
     
-    // Handle window resize for correct header height calculation
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(updateScrollMargins, 250);
-    });
+    // Run on page load
+    window.addEventListener('load', forceReflow);
     
-    // Set initial scroll margins
-    updateScrollMargins();
+    // Run on resize
+    window.addEventListener('resize', forceReflow);
     
-    // Also update after page load to account for any dynamic content
-    window.addEventListener('load', updateScrollMargins);
+    // Run after a short delay to ensure everything is rendered
+    setTimeout(forceReflow, 500);
+    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .footer-links a');
     
@@ -36,17 +40,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    // Offset for fixed header
-                    const headerHeight = document.querySelector('header').offsetHeight;
+                    // Get current scroll position
+                    const currentScroll = window.scrollY;
                     
-                    // Add additional padding to ensure the section title is clearly visible
-                    // Much more padding for mobile devices to account for shorter hero space
-                    const additionalOffset = window.innerWidth <= 768 ? 90 : 20;
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - headerHeight - additionalOffset,
-                        behavior: 'smooth'
-                    });
+                    // Handle scrolling based on device size
+                    if (window.innerWidth <= 768) {
+                        // On mobile, use fixed position values for better control
+                        // This bypasses the dynamic calculation that might be causing issues
+                        const sectionTop = targetElement.getBoundingClientRect().top + window.scrollY;
+                        const fixedOffset = 160; // Fixed large offset for mobile
+                        
+                        window.scrollTo({
+                            top: sectionTop - fixedOffset,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Desktop behavior remains the same
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const additionalOffset = 20;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerHeight - additionalOffset,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
                 
                 // Close the mobile menu after clicking a link
@@ -54,9 +71,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     mobileNav.classList.remove('active');
                     menuToggle.classList.remove('active');
                     
-                    // Force recalculation of scroll position after menu closes
+                    // Force recalculation after menu closes, with a delay to ensure animation completes
                     setTimeout(() => {
-                        updateScrollMargins();
+                        forceReflow();
+                        
+                        // Scroll again after a short delay to ensure correct position
+                        setTimeout(() => {
+                            if (window.innerWidth <= 768) {
+                                const sectionTop = targetElement.getBoundingClientRect().top + window.scrollY;
+                                window.scrollTo({
+                                    top: sectionTop - 160,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }, 100);
                     }, 150);
                 }
             }
@@ -71,6 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             mobileNav.classList.toggle('active');
+            
+            // Force reflow when menu is toggled to ensure proper positioning
+            setTimeout(forceReflow, 50);
         });
     }
     

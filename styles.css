@@ -15,9 +15,23 @@
 }
 
 @media (max-width: 768px) {
-    #about {
-        padding-top: 120px;
+    /* Mobile-specific section adjustments */
+    section {
+        padding: 90px 0 60px;
+        scroll-margin-top: 160px; /* Very large value to ensure titles are visible */
     }
+    
+    /* Special adjustments for first section */
+    #about {
+        padding-top: 160px;
+    }
+    
+    /* Ensure headers are prominent on mobile */
+    section h2 {
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+    
 }
 
 * {
@@ -498,9 +512,10 @@ footer h3, footer h4 {
         grid-template-columns: 1fr;
     }
     
+    /* Override section settings to ensure enough space */
     section {
-        padding: 70px 0 60px;
-        scroll-margin-top: 110px; /* Significantly increase for better mobile viewing */
+        padding: 90px 0 60px !important;
+        scroll-margin-top: 160px !important;
     }
 }
 
