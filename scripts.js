@@ -21,11 +21,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         behavior: 'smooth'
                     });
                 }
+                
+                // Close the mobile menu after clicking a link
+                if (window.innerWidth <= 768) {
+                    mobileNav.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
             }
         });
     });
     
-    // Mobile navigation toggle (for future implementation)
+    // Mobile navigation toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+    }
     
     // Handle contact form submission
     const contactForm = document.getElementById('contactForm');
