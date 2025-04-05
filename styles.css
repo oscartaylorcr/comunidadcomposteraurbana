@@ -1,34 +1,4 @@
-.card .btn {
-    display: inline-block;
-    margin: 0 20px 20px;
-}.full-width-section p {
-    text-align: justify;
-    margin-bottom: 1rem;
-    line-height: 1.7;
-}    .gallery-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .gallery-item img {
-        height: 220px;
-    }    /* Gallery responsive adjustments */
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-    }
-    
-    .gallery-item img {
-        height: 180px;
-    }
-    
-    .gallery-caption {
-        font-size: 0.8rem;
-        padding: 8px;
-        /* Show captions by default on mobile */
-        position: static;
-        transform: none;
-        background-color: var(--primary-color);
-    }/* Global Styles */
+/* Global Styles */
 :root {
     --primary-color: #4A7C59;
     --secondary-color: #8FB996;
@@ -148,7 +118,9 @@ nav ul {
     list-style: none;
 }
 
-
+nav ul li {
+    margin-left: 20px;
+}
 
 nav ul li a {
     color: white;
@@ -231,24 +203,12 @@ nav ul li a:hover {
     line-height: 1.7;
 }
 
-/* Community Section */
-.community-photo {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.community-photo img {
-    border-radius: 10px;
-    margin-bottom: 1rem;
-}
-
 /* Projects Section */
 .project-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .card {
@@ -357,6 +317,13 @@ nav ul li a:hover {
 .sponsor {
     text-align: center;
     max-width: 400px;
+}
+
+.sponsor-logo {
+    max-width: 180px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
 }
 
 @media (max-width: 768px) {
