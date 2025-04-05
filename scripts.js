@@ -1,5 +1,23 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Handle window resize for correct header height calculation
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // Update scroll-margin-top based on current header height
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.querySelectorAll('section').forEach(section => {
+                section.style.scrollMarginTop = (headerHeight + 20) + 'px';
+            });
+        }, 250);
+    });
+    
+    // Set initial scroll-margin-top based on header height
+    const headerHeight = document.querySelector('header').offsetHeight;
+    document.querySelectorAll('section').forEach(section => {
+        section.style.scrollMarginTop = (headerHeight + 20) + 'px';
+    });
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .footer-links a');
     
@@ -16,8 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Offset for fixed header
                     const headerHeight = document.querySelector('header').offsetHeight;
                     
+                    // Add additional padding to ensure the section title is clearly visible
+                    const additionalOffset = 20; // 20px additional padding
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - headerHeight,
+                        top: targetElement.offsetTop - headerHeight - additionalOffset,
                         behavior: 'smooth'
                     });
                 }
