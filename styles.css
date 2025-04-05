@@ -1,4 +1,8 @@
-    .gallery-grid {
+.full-width-section p {
+    text-align: justify;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}    .gallery-grid {
         grid-template-columns: 1fr;
     }
     
@@ -216,6 +220,12 @@ nav ul li a:hover {
     border-bottom: 2px solid var(--secondary-color);
     padding-bottom: 10px;
     display: inline-block;
+}
+
+.full-width-section p {
+    text-align: justify;
+    margin-bottom: 1rem;
+    line-height: 1.7;
 }
 
 /* Community Section */
