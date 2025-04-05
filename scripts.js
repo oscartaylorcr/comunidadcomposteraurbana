@@ -1,32 +1,5 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Helper function to force a layout recalculation
-    function forceReflow() {
-        // Force a reflow by accessing offsetHeight
-        document.body.offsetHeight;
-        
-        // Update scroll margins with extreme values for mobile
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            if (window.innerWidth <= 768) {
-                section.style.scrollMarginTop = '160px';
-                section.style.paddingTop = '90px';
-            } else {
-                section.style.scrollMarginTop = `${document.querySelector('header').offsetHeight + 20}px`;
-                section.style.paddingTop = '';
-            }
-        });
-    }
-    
-    // Run on page load
-    window.addEventListener('load', forceReflow);
-    
-    // Run on resize
-    window.addEventListener('resize', forceReflow);
-    
-    // Run after a short delay to ensure everything is rendered
-    setTimeout(forceReflow, 500);
-    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .footer-links a');
     
@@ -40,52 +13,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    // Get current scroll position
-                    const currentScroll = window.scrollY;
+                    // Get the height of the header
+                    const headerHeight = document.querySelector('header').offsetHeight;
                     
-                    // Handle scrolling based on device size
-                    if (window.innerWidth <= 768) {
-                        // On mobile, use fixed position values for better control
-                        // This bypasses the dynamic calculation that might be causing issues
-                        const sectionTop = targetElement.getBoundingClientRect().top + window.scrollY;
-                        const fixedOffset = 160; // Fixed large offset for mobile
-                        
-                        window.scrollTo({
-                            top: sectionTop - fixedOffset,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        // Desktop behavior remains the same
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const additionalOffset = 20;
-                        
-                        window.scrollTo({
-                            top: targetElement.offsetTop - headerHeight - additionalOffset,
-                            behavior: 'smooth'
-                        });
-                    }
+                    // Add a small offset to ensure the section title is visible
+                    const offset = 20;
+                    
+                    // Scroll to the target element
+                    window.scrollTo({
+                        top: targetElement.offsetTop - headerHeight - offset,
+                        behavior: 'smooth'
+                    });
                 }
                 
                 // Close the mobile menu after clicking a link
                 if (window.innerWidth <= 768) {
-                    mobileNav.classList.remove('active');
-                    menuToggle.classList.remove('active');
+                    const mobileNav = document.getElementById('mobileNav');
+                    const menuToggle = document.getElementById('menuToggle');
                     
-                    // Force recalculation after menu closes, with a delay to ensure animation completes
-                    setTimeout(() => {
-                        forceReflow();
-                        
-                        // Scroll again after a short delay to ensure correct position
-                        setTimeout(() => {
-                            if (window.innerWidth <= 768) {
-                                const sectionTop = targetElement.getBoundingClientRect().top + window.scrollY;
-                                window.scrollTo({
-                                    top: sectionTop - 160,
-                                    behavior: 'smooth'
-                                });
-                            }
-                        }, 100);
-                    }, 150);
+                    if (mobileNav && menuToggle) {
+                        mobileNav.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    }
                 }
             }
         });
@@ -99,9 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             mobileNav.classList.toggle('active');
-            
-            // Force reflow when menu is toggled to ensure proper positioning
-            setTimeout(forceReflow, 50);
         });
     }
     
@@ -128,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Animate elements when they come into view (for future enhancement)
-    
-    // Handle data table sorting (for future enhancement)
     
     // Auto-update copyright year
     const yearSpan = document.querySelector('.footer-bottom');
