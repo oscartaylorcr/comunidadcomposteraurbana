@@ -1,5 +1,19 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Add scroll to top functionality when clicking the site name
+    const siteName = document.querySelector('header h1');
+    if (siteName) {
+        siteName.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add pointer cursor to indicate it's clickable
+        siteName.style.cursor = 'pointer';
+    }
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .footer-links a');
     
