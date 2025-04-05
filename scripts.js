@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sections.forEach(section => {
             // Use larger margin on mobile
             if (window.innerWidth <= 768) {
-                section.style.scrollMarginTop = (headerHeight + 20) + 'px';
+                section.style.scrollMarginTop = (headerHeight + 10) + 'px';
             } else {
                 section.style.scrollMarginTop = (headerHeight + 10) + 'px';
             }
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Add a small offset to ensure the section title is visible
                     // Use a larger offset for mobile due to the header height with the long name
-                    const offset = window.innerWidth <= 768 ? 30 : 20;
+                    const offset = window.innerWidth <= 768 ? 15 : 20;
                     
                     // Scroll to the target element
                     window.scrollTo({
