@@ -9,6 +9,17 @@
     --secondary-font: 'Montserrat', sans-serif;
 }
 
+/* Additional adjustment for first section */
+#about {
+    padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+    #about {
+        padding-top: 120px;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -488,8 +499,8 @@ footer h3, footer h4 {
     }
     
     section {
-        padding: 60px 0;
-        scroll-margin-top: 80px; /* Increase for better mobile viewing */
+        padding: 70px 0 60px;
+        scroll-margin-top: 110px; /* Significantly increase for better mobile viewing */
     }
 }
 

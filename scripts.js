@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set scroll-margin-top based on current device and header height
     function updateScrollMargins() {
         const headerHeight = document.querySelector('header').offsetHeight;
-        const additionalMargin = window.innerWidth <= 768 ? 40 : 20; // More space on mobile
+        // Significantly more margin for mobile to account for shorter hero space
+        const additionalMargin = window.innerWidth <= 768 ? 80 : 20;
         
         document.querySelectorAll('section').forEach(section => {
             section.style.scrollMarginTop = (headerHeight + additionalMargin) + 'px';
@@ -39,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const headerHeight = document.querySelector('header').offsetHeight;
                     
                     // Add additional padding to ensure the section title is clearly visible
-                    // More padding for mobile devices
-                    const additionalOffset = window.innerWidth <= 768 ? 30 : 20;
+                    // Much more padding for mobile devices to account for shorter hero space
+                    const additionalOffset = window.innerWidth <= 768 ? 90 : 20;
                     
                     window.scrollTo({
                         top: targetElement.offsetTop - headerHeight - additionalOffset,
