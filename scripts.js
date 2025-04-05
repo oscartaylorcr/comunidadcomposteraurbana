@@ -13,15 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    // Get the height of the header
-                    const headerHeight = document.querySelector('header').offsetHeight;
+                    // Use a simpler approach relying on the browser's native scrolling behavior
+                    // along with CSS's margin-top for sections
                     
-                    // Standard offset
-                    const offset = 10;
-                    
-                    // Scroll to the target element
+                    // Scroll to the element with a small adjustment
                     window.scrollTo({
-                        top: targetElement.offsetTop - headerHeight - offset,
+                        // Just use the element's position without complex calculations
+                        top: targetElement.offsetTop - 5,
                         behavior: 'smooth'
                     });
                 }
