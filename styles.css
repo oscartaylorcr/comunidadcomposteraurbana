@@ -80,7 +80,7 @@ a:hover {
 
 section {
     padding: 80px 0;
-    scroll-margin-top: 90px; /* Increased to account for taller header */
+    scroll-margin-top: 60px;
 }
 
 /* Header Styles */
@@ -419,7 +419,6 @@ footer h3, footer h4 {
     header {
         padding: 10px 0;
     }
-    
     header .container {
         padding: 0 15px;
         justify-content: space-between;
@@ -491,10 +490,10 @@ footer h3, footer h4 {
         grid-template-columns: 1fr;
     }
     
-    /* Override section settings to ensure enough space */
+    /* Section settings for mobile */
     section {
         padding: 60px 0;
-        scroll-margin-top: 50px; /* Reduced for smaller mobile header */
+        scroll-margin-top: 50px;
     }
 }
 
