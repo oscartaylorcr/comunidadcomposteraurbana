@@ -200,9 +200,22 @@ nav ul li a:hover {
 
 /* About Section */
 .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.full-width-section {
+    width: 100%;
+}
+
+.full-width-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    display: inline-block;
 }
 
 /* Community Section */
@@ -575,10 +588,6 @@ footer h3, footer h4 {
     
     .hero p {
         font-size: 1.2rem;
-    }
-    
-    .about-content {
-        grid-template-columns: 1fr;
     }
     
     /* Section settings for mobile */
